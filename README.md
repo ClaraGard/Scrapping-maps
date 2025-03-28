@@ -213,17 +213,8 @@ The script will clean the data and save it to your Excel file.
 
 ---
 
-## 🛠 Want to Customize?
-
-If you’re more technical, you can:
-- Add more social links or business fields
-- Save to `.csv` instead of `.xlsx`
-- Combine this with email campaigns or CRMs
-
----
-
 ## 📞 Need Help?
 
-Open an issue or contact the author if you’re stuck or want to contribute to the project.
+Contact clawara on Discord.
 
 ---
