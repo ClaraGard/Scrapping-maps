@@ -1,220 +1,193 @@
-# 🗺️ Scrap Google Maps Business Info with Scrap.io
+# 🗺️ Extraire des informations d'entreprises sur Google Maps avec Scrap.io
 
-This guide helps you collect business contact details (emails, phones, websites, etc.) from Google Maps using the **Scrap.io** browser extension and this Python script — no coding skills required!
-
----
-
-## ✅ What You'll Get
-
-- A spreadsheet (`.xlsx`) with contact info like:
-  - Business website
-  - Email address
-  - Phone number
-  - Social links (Facebook, Instagram)
-  - Google Maps link
+Ce guide vous permet de collecter des coordonnées professionnelles (emails, téléphones, sites web, etc.) à partir de Google Maps grâce à l’extension **Scrap.io** et à ce script Python — **aucune compétence en code requise** !
 
 ---
 
-## 🔧 What You Need
+## ✅ Ce que vous obtiendrez
 
-1. **A computer (Windows, macOS, or Linux)**
-2. **Python 3 installed**
-3. **Google Chrome or Chromium**
-4. **The Scrap.io extension (free)**
+- Un fichier tableur (`.xlsx`) contenant :
+  - Site web de l’entreprise  
+  - Adresse email  
+  - Numéro de téléphone  
+  - Liens vers les réseaux sociaux (Facebook, Instagram)  
+  - Lien Google Maps  
 
 ---
 
-## 🚀 Step-by-Step Setup
+## 🔧 Ce dont vous avez besoin
 
-### 1. ✅ Install Python
+1. **Un ordinateur (Windows, macOS ou Linux)**
+2. **Python 3 installé**
+3. **Google Chrome ou Chromium**
+4. **L’extension Scrap.io (gratuite)**
 
-Go to the official Python website and download the latest version:
+---
+
+## 🚀 Étapes d’installation
+
+### 1. ✅ Installer Python
+
+Allez sur le site officiel de Python pour télécharger la dernière version :
 
 🔗 https://www.python.org/downloads/
 
-- During installation, **check the box that says**:  
+- Lors de l’installation, **cochez la case** :  
   `Add Python to PATH`
-- Then click **Install Now**
+- Puis cliquez sur **Install Now**
 
-To confirm Python is installed:
-- Open your terminal or command prompt
-- Type: `python --version`  
-  You should see something like `Python 3.11.7` or more
+Pour vérifier que Python est bien installé :
+- Ouvrez votre terminal ou l’invite de commande
+- Tapez : `python --version`  
+  Vous devriez voir quelque chose comme `Python 3.11.7` ou plus
 
 ---
 
-### 2. ✅ Install Required Python Packages
+### 2. ✅ Installer les modules Python nécessaires
 
-Open your terminal or command prompt by typing cmd in the windows search bar and run the commands:
+Ouvrez le terminal ou l’invite de commande (tapez `cmd` dans la barre de recherche Windows), puis exécutez :
 
 ```bash
-pip install pandas playwright openpyxl
+pip install pandas playwright openpyxl 
 playwright install
 ```
 
-This installs the necessary tools for the script to run.
+
+Cela installera les outils nécessaires au fonctionnement du script.
 
 ---
 
-### 3. ✅ Install the Scrap.io Extension
+### 3. ✅ Installer l’extension Scrap.io
 
-Go to the Scrap.io Chrome Web Store page:
+Rendez-vous sur la page Chrome Web Store de Scrap.io :
 
 🔗 https://chrome.google.com/webstore/detail/scrapio-google-maps-scrap/lhdoppojpmngadmnindnejefpokejbdd
 
-Once installed, you’ll need to find the extension's local path to allow the script to load it.
+Une fois installée, vous devrez retrouver le chemin local de l’extension pour permettre au script de la charger.
 
 ---
 
-## 🔍 How to Find the Extension Path
+## 🔍 Trouver le chemin local de l’extension
 
-1. Open Chrome and go to `chrome://extensions`
-2. Enable **Developer Mode** (top right corner)
-3. Find **Scrap.io** and click **Details**
-4. Copy the **Extension ID** — it's a long string like:  
-![Extension ID location](your_scrap.io_id.png)
+1. Ouvrez Chrome et allez sur `chrome://extensions`  
+2. Activez le **Mode développeur** (en haut à droite)  
+3. Trouvez **Scrap.io** et cliquez sur **Détails**  
+4. Copiez l’**ID de l’extension** — une longue chaîne comme :  
+   `mjllncbijgeccmolnikpkbkpbjggcgij`
 
-`mjllncbijgeccmolnikpkbkpbjggcgij`
-   
+5. Sur votre ordinateur, allez dans le dossier **User Data** de Chrome :
 
-5. On your computer, go to the Chrome **User Data** folder:
+   - **Windows :**  
+     `C:\Users\<VotreNom>\AppData\Local\Google\Chrome\User Data\`
 
-   - **Windows:**
-     ```
-     C:\Users\<YourName>\AppData\Local\Google\Chrome\User Data\
-     ```
-   - **macOS:**
-     ```
-     ~/Library/Application Support/Google/Chrome/
-     ```
-   - **Linux:**
-     ```
-     ~/.config/google-chrome/
-     ```
+   - **macOS :**  
+     `~/Library/Application Support/Google/Chrome/`
 
-6. Inside that folder, you may see one or more profiles:
-   - `Default` (main profile)
-   - `Profile 1`, `Profile 2`, etc. (if you use multiple Chrome users)
+   - **Linux :**  
+     `~/.config/google-chrome/`
 
-7. Check inside each profile's `Extensions` folder:
+6. Dans ce dossier, vous trouverez plusieurs profils :  
+   `Default`, `Profile 1`, `Profile 2`, etc.
 
-   **Example (Windows):**
-    ```
-    C:\Users<YourName>\AppData\Local\Google\Chrome\User Data\Profile 1\Extensions
-    ```
+7. Allez dans le dossier `Extensions` du bon profil :  
+   Par exemple :  
+   `C:\Users\<VotreNom>\AppData\Local\Google\Chrome\User Data\Profile 1\Extensions`
 
-8. Find the folder matching the Scrap.io ID (e.g. `mjllncbijgeccmolnikpkbkpbjggcgij`)
+8. Trouvez le dossier correspondant à l’ID Scrap.io  
+9. Ouvrez le dossier de la version la plus récente (ex. `1.6.4_0`)  
+10. Copiez le **chemin complet** de ce dossier (clic droit > "Copier en tant que chemin")
 
-9. Open the most recent version folder inside (e.g. `1.6.4_0`)
-
-10. Copy the **full path** of that folder (right click the folder, "Copy as path") — this is the value to use for the `--extension-path` when running the script.
-
-✅ Example:
+Ce chemin sera utilisé avec `--extension-path` lors du lancement du script.
 
 ---
 
-## 🏃 How to Run the Script
+## 🏃 Exécuter le script
 
-## 📦 Download the Script
+### 📦 Télécharger le script
 
-1. **Download the GitHub repository**:
-   - Click the green **Code** button at the top of this GitHub page
-   - Choose **Download ZIP**
-   - Extract the ZIP file to a folder on your computer
+1. Téléchargez le dépôt GitHub :  
+   - Cliquez sur le bouton **Code** (vert)  
+   - Cliquez sur **Download ZIP**  
+   - Extrayez le ZIP dans un dossier
 
-   Or clone it using Git:
-   ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   ```
+   ou bien clonez-le via Git :  
+   `git clone https://github.com/votreutilisateur/votre-repo.git`
 
-2. Open a terminal or command prompt  
-   Use `cd` to go to the folder where the script is:
+2. Ouvrez un terminal ou une invite de commande  
+   Placez-vous dans le dossier du script avec `cd` :  
+   `cd "C:\Users\VotreNom\Desktop\scrapio-scraper"`
 
-   ```bash
-   cd "C:\Users\YourName\Desktop\scrapio-scraper"
-   ```
+3. Lancez le script :  
+   `python scrape_maps.py --extension-path "CHEMIN_VERS_L’EXTENSION" --output "mes_données.xlsx"`
 
-3. Run the script:
-
-   ```bash
-   python scrape_maps.py --extension-path "FULL_PATH_TO_SCRAPIO" --output "my_data.xlsx"
-   ```
-
-   Example (on Windows):
-
-   ```bash
-   python scrape_maps.py --extension-path "C:\Users\Clara\AppData\Local\Google\Chrome\User Data\Profile 1\Extensions\mjllncbijgeccmolnikpkbkpbjggcgij\1.6.4_0" --output "paris_restaurants.xlsx"
-   ```
+   Exemple :  
+   `python scrape_maps.py --extension-path "C:\Users\Clara\AppData\Local\Google\Chrome\User Data\Profile 1\Extensions\mjllncbijgeccmolnikpkbkpbjggcgij\1.6.4_0" --output "paris_restaurants.xlsx"`
 
 ---
 
-## 🔍 Scraping Instructions
+## 🔍 Instructions de scraping
 
-Once the script runs:
+1. Une fenêtre Chrome s’ouvre avec Google Maps  
+2. Zoomez sur la zone souhaitée  
+3. Cherchez un type d’entreprise, ex. **“Fleuriste”**  
+4. Faites défiler les résultats à gauche jusqu’à la fin  
+5. Attendez l’apparition des icônes Scrap.io  
+6. Revenez dans le terminal et appuyez sur **Entrée**  
+7. Attendez que le script affiche combien d’entreprises ont été extraites  
+8. Revenez sur Maps, effectuez une nouvelle recherche  
+9. Répétez si nécessaire  
+10. Tapez `STOP` et appuyez sur **Entrée** pour terminer
 
-1. A Chrome browser will open with Google Maps (This is a normal google maps page, you can search in your native language)
-2. Zoom in to the area you want to scrape businesses from
-3. Search for a type of business, like **“Florist”** or **“Supermarket”**
-4. Go to the list of results on your left and scroll down untill no new results appear
-5. Wait for the Scrap.io icons to appear if needed
-6. Go back to the terminal and press **Enter**  
-   → This scrapes all visible businesses
-7. Wait for the terminal to tell you how many businesses were extracted
-8. Go back to maps and make a new research to scrape more
-9. Repeat as needed
-10. Type `STOP` and press **Enter** to finish
-
-The script will clean the data and save it to your Excel file.
+Les données seront nettoyées et enregistrées dans votre fichier Excel.
 
 ---
 
-## 📂 Output Example
+## 📂 Exemple de sortie
 
 | maps_link | email             | phone       | website           | contact_page       | facebook             | instagram             |
 |-----------|------------------|-------------|-------------------|--------------------|----------------------|-----------------------|
-| https://... | info@domain.com | +33612345678 | www.example.com   | /contact           | fb.com/yourbiz       | instagram.com/yourbiz |
+| https://... | info@domaine.com | +33612345678 | www.exemple.com   | /contact           | fb.com/votrepage     | instagram.com/votrebiz |
 
 ---
 
-## ❓ Troubleshooting
+## ❓ En cas de problème
 
-- **Nothing scraped?**  
-  → Make sure Scrap.io icons are loaded on the map page before pressing Enter
+- **Rien n’est extrait ?**  
+  → Vérifiez que les icônes Scrap.io sont bien chargées avant d’appuyer sur Entrée
 
-- **Extension not working?**  
-  → Double-check the extension path — it must include the version folder
+- **L’extension ne fonctionne pas ?**  
+  → Vérifiez le chemin complet (avec le dossier de version)
 
-- **Playwright errors?**  
-  → Run `playwright install` again
+- **Erreurs Playwright ?**  
+  → Exécutez `playwright install` à nouveau
 
-- **"Permission denied"?**  
-  → Try running the terminal as Administrator
-
----
-
-## 💡 Tips
-
-- Use more specific search terms for better targeting  
-  (e.g., `"photographers in Lyon"` instead of just `"photographers"`)
-
-- Zoom in/out on the map if results aren’t loading
-
-- Wait a few seconds after scrolling before scraping again
+- **"Permission denied" ?**  
+  → Lancez le terminal en mode administrateur
 
 ---
 
-## 🧼 What the Script Does
+## 💡 Conseils
 
-- Opens Chrome with the Scrap.io extension
-- Lets you manually browse Google Maps
-- Collects contact info from visible business listings
-- Cleans the data (removes duplicates, keeps only useful lines)
-- Saves it to Excel
+- Utilisez des recherches plus précises  
+  ex. `"photographes à Lyon"` au lieu de `"photographes"`
+
+- Ajustez le zoom si les résultats ne s’affichent pas  
+- Attendez quelques secondes après avoir fait défiler avant d’extraire
 
 ---
 
-## 📞 Need Help?
+## 🧼 Ce que fait le script
 
-Contact clawara on Discord.
+- Ouvre Chrome avec l’extension Scrap.io  
+- Vous permet de naviguer manuellement sur Google Maps  
+- Récupère les informations de contact visibles  
+- Nettoie les doublons et garde l’essentiel  
+- Sauvegarde le tout dans un fichier Excel
+
+---
+
+## 📞 Besoin d'aide?
+
+Contactez clawara sur Discord.
 
 ---
