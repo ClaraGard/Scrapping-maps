@@ -39,13 +39,13 @@ Go to the official Python website and download the latest version:
 To confirm Python is installed:
 - Open your terminal or command prompt
 - Type: `python --version`  
-  You should see something like `Python 3.11.7`
+  You should see something like `Python 3.11.7` or more
 
 ---
 
 ### 2. ✅ Install Required Python Packages
 
-Open your terminal or command prompt and run:
+Open your terminal or command prompt by typing cmd in the windows search bar and run the commands:
 
 ```bash
 pip install pandas playwright openpyxl
@@ -71,46 +71,78 @@ Once installed, you’ll need to find the extension's local path to allow the sc
 1. Open Chrome and go to `chrome://extensions`
 2. Enable **Developer Mode** (top right corner)
 3. Find **Scrap.io** and click **Details**
-4. Copy the **ID** — it looks like:  
-   `lhdoppojpmngadmnindnejefpokejbdd`
-5. On your computer, go to:
+4. Copy the **Extension ID** — it's a long string like:  
+   `mjllncbijgeccmolnikpkbkpbjggcgij`
+   ![Extension ID location](your_scrap.io_id.png)
+
+5. On your computer, go to the Chrome **User Data** folder:
 
    - **Windows:**
      ```
-     C:\Users\<YourName>\AppData\Local\Google\Chrome\User Data\Default\Extensions
+     C:\Users\<YourName>\AppData\Local\Google\Chrome\User Data\
      ```
    - **macOS:**
      ```
-     ~/Library/Application Support/Google/Chrome/Default/Extensions
+     ~/Library/Application Support/Google/Chrome/
      ```
    - **Linux:**
      ```
-     ~/.config/google-chrome/Default/Extensions
+     ~/.config/google-chrome/
      ```
 
-6. Open the folder matching the extension ID.
-7. Inside, open the most recent version folder (like `1.6.4_0`)
-8. Copy the full path — this is your `--extension-path`.
+6. Inside that folder, you may see one or more profiles:
+   - `Default` (main profile)
+   - `Profile 1`, `Profile 2`, etc. (if you use multiple Chrome users)
+
+7. Check inside each profile's `Extensions` folder:
+
+   **Example (Windows):**
+    ```
+    C:\Users<YourName>\AppData\Local\Google\Chrome\User Data\Profile 1\Extensions
+    ```
+
+8. Find the folder matching the Scrap.io ID (e.g. `mjllncbijgeccmolnikpkbkpbjggcgij`)
+
+9. Open the most recent version folder inside (e.g. `1.6.4_0`)
+
+10. Copy the **full path** of that folder (right click the folder, "Copy as path") — this is the value to use for the `--extension-path` when running the script.
+
+✅ Example:
 
 ---
 
 ## 🏃 How to Run the Script
 
-1. Download or copy the script and save it as `scrape_maps.py`
+## 📦 Download the Script
 
-2. In a terminal or command prompt, navigate to the folder where the script is saved.
+1. **Download the GitHub repository**:
+   - Click the green **Code** button at the top of this GitHub page
+   - Choose **Download ZIP**
+   - Extract the ZIP file to a folder on your computer
 
-3. Run the script using:
+   Or clone it using Git:
+   ```bash
+   git clone https://github.com/yourusername/your-repo-name.git
+   ```
 
-```bash
-python scrape_maps.py --extension-path "FULL_PATH_TO_SCRAPIO" --output "my_data.xlsx"
-```
+2. Open a terminal or command prompt  
+   Use `cd` to go to the folder where the script is:
 
-Example (on Windows):
+   ```bash
+   cd "C:\Users\YourName\Desktop\scrapio-scraper"
+   ```
 
-```bash
-python scrape_maps.py --extension-path "C:\Users\Clara\AppData\Local\Google\Chrome\User Data\Default\Extensions\lhdoppojpmngadmnindnejefpokejbdd\1.6.4_0" --output "paris_restaurants.xlsx"
-```
+3. Run the script:
+
+   ```bash
+   python scrape_maps.py --extension-path "FULL_PATH_TO_SCRAPIO" --output "my_data.xlsx"
+   ```
+
+   Example (on Windows):
+
+   ```bash
+   python scrape_maps.py --extension-path "C:\Users\Clara\AppData\Local\Google\Chrome\User Data\Profile 1\Extensions\mjllncbijgeccmolnikpkbkpbjggcgij\1.6.4_0" --output "paris_restaurants.xlsx"
+   ```
 
 ---
 
@@ -118,15 +150,17 @@ python scrape_maps.py --extension-path "C:\Users\Clara\AppData\Local\Google\Chro
 
 Once the script runs:
 
-1. A Chrome browser will open with Google Maps
-2. Search for a type of business, like **“Florists in Marseille”**
-3. Wait for the Scrap.io icons to appear
-4. Go back to the terminal and press **Enter**  
+1. A Chrome browser will open with Google Maps (This is a normal google maps page, you can search in your native language)
+2. Zoom in to the area you want to scrape businesses from
+3. Search for a type of business, like **“Florist”** or **“Supermarket”**
+4. Go to the list of results on your left and scroll down untill no new results appear
+5. Wait for the Scrap.io icons to appear if needed
+6. Go back to the terminal and press **Enter**  
    → This scrapes all visible businesses
-5. Scroll down in Maps to load more businesses
-6. Press **Enter** again to scrape the new ones
-7. Repeat as needed
-8. Type `STOP` and press **Enter** to finish
+7. Wait for the terminal to tell you how many businesses were extracted
+8. Go back to maps and make a new research to scrape more
+9. Repeat as needed
+10. Type `STOP` and press **Enter** to finish
 
 The script will clean the data and save it to your Excel file.
 
