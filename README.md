@@ -73,6 +73,7 @@ Once installed, you’ll need to find the extension's local path to allow the sc
 3. Find **Scrap.io** and click **Details**
 4. Copy the **Extension ID** — it's a long string like:  
 ![Extension ID location](your_scrap.io_id.png)
+
 `mjllncbijgeccmolnikpkbkpbjggcgij`
    
 
