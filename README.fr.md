@@ -1,3 +1,57 @@
+# 🗺️ Extraire des informations d'entreprises sur Google Maps avec Scrap.io
+
+Ce guide vous permet de collecter des coordonnées professionnelles (emails, téléphones, sites web, etc.) à partir de Google Maps grâce à l’extension **Scrap.io** et à ce script Python — **aucune compétence en code requise** !
+
+---
+
+## ✅ Ce que vous obtiendrez
+
+- Un fichier tableur (`.xlsx`) contenant :
+  - Site web de l’entreprise  
+  - Adresse email  
+  - Numéro de téléphone  
+  - Liens vers les réseaux sociaux (Facebook, Instagram)  
+  - Lien Google Maps  
+
+---
+
+## 🔧 Ce dont vous avez besoin
+
+1. **Un ordinateur (Windows, macOS ou Linux)**
+2. **Python 3 installé**
+3. **Google Chrome ou Chromium**
+4. **L’extension Scrap.io (gratuite)**
+
+---
+
+## 🚀 Étapes d’installation
+
+### 1. ✅ Installer Python
+
+Allez sur le site officiel de Python pour télécharger la dernière version :
+
+🔗 https://www.python.org/downloads/
+
+- Lors de l’installation, **cochez la case** :  
+  `Add Python to PATH`
+- Puis cliquez sur **Install Now**
+
+Pour vérifier que Python est bien installé :
+- Ouvrez votre terminal ou l’invite de commande
+- Tapez : `python --version`  
+  Vous devriez voir quelque chose comme `Python 3.11.7` ou plus
+
+---
+
+### 2. ✅ Installer les modules Python nécessaires
+
+Ouvrez le terminal ou l’invite de commande (tapez `cmd` dans la barre de recherche Windows), puis exécutez :
+
+```bash
+pip install pandas playwright openpyxl 
+playwright install
+```
+
 
 Cela installera les outils nécessaires au fonctionnement du script.
 
