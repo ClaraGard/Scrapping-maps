@@ -72,8 +72,11 @@ Une fois installée, vous devrez retrouver le chemin local de l’extension pour
 1. Ouvrez Chrome et allez sur `chrome://extensions`  
 2. Activez le **Mode développeur** (en haut à droite)  
 3. Trouvez **Scrap.io** et cliquez sur **Détails**  
-4. Copiez l’**ID de l’extension** — une longue chaîne comme :  
-   `mjllncbijgeccmolnikpkbkpbjggcgij`
+4. Copy the **Extension ID** — it's a long string like:  
+![Extension ID location](your_scrap.io_id.png)
+
+`mjllncbijgeccmolnikpkbkpbjggcgij`
+
 
 5. Sur votre ordinateur, allez dans le dossier **User Data** de Chrome :
 
